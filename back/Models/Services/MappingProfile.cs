@@ -8,7 +8,8 @@ namespace back.Models.Services
     {
         public MappingProfile()
         {
-            CreateMap<Liga, LigaDto>();
+            CreateMap<Liga, LigaDto>()
+                .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa));
         }
     }    
 }

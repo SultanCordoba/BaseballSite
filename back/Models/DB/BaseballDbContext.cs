@@ -23,7 +23,7 @@ namespace back.Models.DB
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("name=BeisbolBase");
+                optionsBuilder.UseSqlite("name=BaseballBase");
             }
         }
 
@@ -35,6 +35,8 @@ namespace back.Models.DB
 
                 entity.HasIndex(e => e.Id, "Liga_Id_IDX")
                     .IsUnique();
+
+                entity.Property(e => e.Activa).HasDefaultValueSql("0");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
