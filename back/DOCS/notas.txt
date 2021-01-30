@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Datasource=C:\Users\desarrollador\source\GitHub\PERSONALES\BaseballSite\back\assets\baseball.db" Microsoft.EntityFrameworkCore.Sqlite -c "BaseballDbContext" -o Models\DB -f

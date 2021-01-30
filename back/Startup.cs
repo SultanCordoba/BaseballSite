@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using back.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
+using back.Models.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace back
 {
@@ -32,6 +36,16 @@ namespace back
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "back", Version = "v1" });
             });
+
+            // Automapper
+            services.AddAutoMapper(typeof(Startup));
+
+            // Database
+            services.AddDbContext<BaseballDbContext>(options => 
+                options.UseSqlite(Configuration.GetConnectionString("BeisbolBase")));
+
+            // Add services
+            services.AddTransient<ILigaService, LigaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
