@@ -6,7 +6,7 @@ using back.Models.DB;
 using back.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace back.Models.Services
+namespace back.Services
 {
     public class LigaService : ILigaService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using back.Models.DB;
 using back.Models.Entities;
-using back.Models.Services;
+using back.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

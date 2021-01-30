@@ -2,7 +2,7 @@ using AutoMapper;
 using back.Models.DB;
 using back.Models.Entities;
 
-namespace back.Models.Services
+namespace back.Profiles
 {
     public class MappingProfile : Profile 
     {

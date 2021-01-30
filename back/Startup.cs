@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using back.Models.Services;
+using back.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,6 +44,20 @@ namespace back
             services.AddDbContext<BaseballDbContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("BeisbolBase")));
 
+            // Add CORS localhost
+            services.AddCors(options =>
+            {
+                options.AddPolicy("localhost",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200/")
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                    ;
+                });
+            });
+
             // Add services
             services.AddTransient<ILigaService, LigaService>();
         }
@@ -56,6 +70,7 @@ namespace back
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "back v1"));
+                app.UseCors("localhost");
             }
 
             app.UseHttpsRedirection();

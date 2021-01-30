@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using back.Models.DB;
 using back.Models.Entities;
 
-namespace back.Models.Services
+namespace back.Services
 {
     public interface ILigaService
     {
