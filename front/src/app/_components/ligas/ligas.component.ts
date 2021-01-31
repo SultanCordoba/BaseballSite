@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Liga } from 'src/app/_models/liga';
 import { LigaService } from 'src/app/_services/liga.service';
 
@@ -9,14 +10,22 @@ import { LigaService } from 'src/app/_services/liga.service';
 })
 export class LigasComponent implements OnInit {
 
-    ligas: Liga[];
+    liga: Liga
+    ligaId: number;
 
-  constructor(private ligaService: LigaService) { }
+  constructor(private ligaService: LigaService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.ligaService.listaLigas().subscribe(
-        ligas => this.ligas = ligas
-    );
+    this.route.paramMap.subscribe(params => {
+        this.ligaId = Number(params.get("id"));
+        this.refrescar();
+    });
   }
 
+  private refrescar() {
+      this.ligaService.getLiga(this.ligaId).subscribe(
+          liga => this.liga = liga
+      );
+  }
 }

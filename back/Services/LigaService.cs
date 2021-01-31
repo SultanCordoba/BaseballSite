@@ -25,5 +25,12 @@ namespace back.Services
             LigaDto[] respuesta = _mapper.Map<Liga[], LigaDto[]>(fuente);
             return respuesta;
         }
+
+        public async Task<LigaDto> getLiga(int id)
+        {
+            Liga fuente = await _contexto.Ligas.FirstOrDefaultAsync(l => l.Id == id);
+            LigaDto respuesta = _mapper.Map<Liga, LigaDto>(fuente);
+            return respuesta;
+        }
     }
 }

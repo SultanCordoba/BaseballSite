@@ -4,7 +4,9 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
-    <app-ligas></app-ligas>
+    <mat-nav-list>
+        <a *ngFor="let elemento of ligas" mat-list-item [routerLink]="['/liga', elemento.id]">{{elemento.siglas}}</a>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -19,5 +21,6 @@
       <span>front</span>
     </mat-toolbar>
     <!-- Add Content Here -->
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

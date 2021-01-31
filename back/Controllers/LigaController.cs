@@ -28,5 +28,10 @@ namespace back.Controllers
         public async Task<LigaDto[]> getAll() {
             return await _ligaService.getAll();
         }
+
+        [HttpGet("{id}")]
+        public async Task<LigaDto> GetLiga(int id) {
+            return await _ligaService.getLiga(id);
+        }
     }
 }

@@ -16,4 +16,10 @@ export class LigaService {
         `${environment.apiUrl}/liga`
       );
   }
+
+  public getLiga(id: number): Observable<Liga> {
+      return this.httpClient.get<Liga>(
+        `${environment.apiUrl}/liga/${id}`
+      );
+  }
 }

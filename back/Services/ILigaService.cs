@@ -8,5 +8,6 @@ namespace back.Services
     public interface ILigaService
     {
         public Task<LigaDto[]> getAll();
+        public Task<LigaDto> getLiga(int id);
     }
 }
