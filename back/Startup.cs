@@ -60,6 +60,7 @@ namespace back
 
             // Add services
             services.AddTransient<ILigaService, LigaService>();
+            services.AddTransient<ITemporadaService, TemporadaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

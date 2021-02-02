@@ -18,12 +18,13 @@ namespace back.Models.DB
         }
 
         public virtual DbSet<Liga> Ligas { get; set; }
+        public virtual DbSet<Temporadum> Temporada { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("name=BaseballBase");
+                optionsBuilder.UseSqlite("name=BeisbolBase");
             }
         }
 
@@ -45,6 +46,27 @@ namespace back.Models.DB
                 entity.Property(e => e.Siglas)
                     .IsRequired()
                     .HasColumnType("TEXT(10)");
+            });
+
+            modelBuilder.Entity<Temporadum>(entity =>
+            {
+                entity.HasIndex(e => e.Id, "Temporada_ID_IDX")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.FechaInicio).HasColumnType("TEXT(20)");
+
+                entity.Property(e => e.LigaId).HasColumnName("Liga_ID");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasColumnType("TEXT(20)");
+
+                entity.HasOne(d => d.Liga)
+                    .WithMany(p => p.Temporada)
+                    .HasForeignKey(d => d.LigaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             OnModelCreatingPartial(modelBuilder);

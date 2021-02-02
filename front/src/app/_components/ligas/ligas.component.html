@@ -1,1 +1,9 @@
 <h1>{{liga.nombre}}</h1>
+
+<div *ngIf="!!liga.temporadas">
+    <mat-grid-list cols="5" rowHeight="40px" style="margin: 0px 10px;">
+        <mat-grid-tile *ngFor="let temporada of liga.temporadas" >
+            <a [routerLink]="['/temporada', temporada.id]">{{temporada.nombre}}</a>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

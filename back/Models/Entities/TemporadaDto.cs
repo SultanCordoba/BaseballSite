@@ -2,16 +2,13 @@ using System;
 
 namespace back.Models.Entities
 {
-    public partial class LigaDto
+    public partial class TemporadaDto
     {
         public long Id { get; set; }
         public string Nombre { get; set; }
-        public string Siglas { get; set; }
         public Boolean Activa { get; set; }
 
-        public TemporadaDto[] Temporadas { get; set; }
-
-        public LigaDto(int Activa) {
+        public TemporadaDto(int Activa) {
             this.Activa = Activa > 0;
         }
     }

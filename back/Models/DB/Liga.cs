@@ -7,9 +7,16 @@ namespace back.Models.DB
 {
     public partial class Liga
     {
+        public Liga()
+        {
+            Temporada = new HashSet<Temporadum>();
+        }
+
         public long Id { get; set; }
         public string Nombre { get; set; }
         public string Siglas { get; set; }
         public long? Activa { get; set; }
+
+        public virtual ICollection<Temporadum> Temporada { get; set; }
     }
 }

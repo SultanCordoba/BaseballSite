@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Liga } from 'src/app/_models/liga';
 import { LigaService } from 'src/app/_services/liga.service';
 
@@ -12,6 +13,7 @@ export class LigasComponent implements OnInit {
 
     liga: Liga
     ligaId: number;
+    ligaSuscripcion: Subscription;
 
   constructor(private ligaService: LigaService,
     private route: ActivatedRoute) { }
@@ -23,8 +25,12 @@ export class LigasComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.ligaSuscripcion.unsubscribe();
+  }
+
   private refrescar() {
-      this.ligaService.getLiga(this.ligaId).subscribe(
+      this.ligaSuscripcion = this.ligaService.getLiga(this.ligaId).subscribe(
           liga => this.liga = liga
       );
   }

@@ -28,8 +28,19 @@ namespace back.Services
 
         public async Task<LigaDto> getLiga(int id)
         {
+            LigaDto respuesta = null;
+
             Liga fuente = await _contexto.Ligas.FirstOrDefaultAsync(l => l.Id == id);
-            LigaDto respuesta = _mapper.Map<Liga, LigaDto>(fuente);
+            if (fuente != null) {
+                respuesta = _mapper.Map<Liga, LigaDto>(fuente);
+                Temporadum[] fuenteTemp = await _contexto.Temporada.Where
+                    (p => p.LigaId == fuente.Id).ToArrayAsync();
+
+                if (fuenteTemp != null) {
+                    respuesta.Temporadas = _mapper.Map<Temporadum[], TemporadaDto[]>(fuenteTemp);
+                }
+            }
+
             return respuesta;
         }
     }

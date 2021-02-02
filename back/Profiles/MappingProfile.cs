@@ -10,6 +10,9 @@ namespace back.Profiles
         {
             CreateMap<Liga, LigaDto>()
                 .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa));
+
+            CreateMap<Temporadum, TemporadaDto>() 
+                .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa));
         }
     }    
 }
