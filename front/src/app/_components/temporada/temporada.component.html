@@ -2,7 +2,17 @@
     <h2>Temporada {{temporada.nombre}}</h2>
 
     <div [innerHtml]="temporada.descripcion"></div>
-    
+
+    <div *ngIf="temporada.movimientos">
+        <h2>Movimientos de equipos</h2>
+
+        <ul>
+            <li *ngFor="let key of objectKeys(temporada.movimientos)">
+                {{key}}
+            </li>
+        </ul>    
+    </div>
+
     <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
         <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
             <app-escenario [escenario]="element"></app-escenario>

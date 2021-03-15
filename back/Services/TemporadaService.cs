@@ -24,15 +24,16 @@ namespace back.Services
                 .Include(t => t.Escenarios)
                 .ThenInclude(e => e.TipoEscenario)
                 .FirstOrDefaultAsync(t => t.Id == id);
-            TemporadaDto respuesta = _mapper.Map<Temporadum, TemporadaDto>(temporada);
-            /* Escenario[] escenarios = await _contexto.Escenarios
-                .Where(e => e.TemporadaId == id)
+            TemporadaDto respuesta = _mapper.Map<Temporadum, TemporadaDto>(temporada);    
+
+            Movimiento[] movimientos = await _contexto.Movimientos
+                .Include(m => m.TipoMovimiento)
+                .Where(m => m.TemporadaId == id)
+                .OrderBy(m => m.TipoMovimiento.Clave)
+                .ThenBy(m => m.EquipoFuente)
                 .ToArrayAsync()
             ;
-
-            if (escenarios.Length > 0) {
-                respuesta.Escenarios = _mapper.Map<Escenario[], EscenarioDto[]>(escenarios);
-            }  */         
+            respuesta.GeneraMovimientos(movimientos);
 
             return respuesta;
         }

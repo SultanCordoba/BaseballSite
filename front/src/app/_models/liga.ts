@@ -6,12 +6,18 @@ export class Escenario {
     campeon: string;
 }
 
+export class Dupla {
+    fuente: string;
+    destino: string;
+}
+
 export class Temporada {
     id: number;
     nombre: string;
     activa: boolean;
     descripcion: string;
     escenarios: Escenario[];
+    movimientos: Record<string, Dupla[]>;
 }
 
 export class Liga {

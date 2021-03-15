@@ -15,8 +15,11 @@ export class TemporadaComponent implements OnInit {
     temporadaSubscripcion: Subscription;
     temporada: Temporada;
 
+    objectKeys = Object.keys;
+
   constructor(private temporadaServicio: TemporadaService,
     private route: ActivatedRoute) { }
+
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -31,7 +34,10 @@ export class TemporadaComponent implements OnInit {
 
   public refrescar() {
     this.temporadaSubscripcion = this.temporadaServicio.getTemporada(this.temporadaId).subscribe(
-        temporada => this.temporada = temporada
+        temporada => {
+            this.temporada = temporada;
+            console.log(temporada.movimientos);    
+        }
     );
   }
 }
