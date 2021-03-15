@@ -11,13 +11,25 @@ export class Dupla {
     destino: string;
 }
 
+export class Movimiento {
+    id: number;
+    equipoFuente: string;
+    equipoDestino: string;
+}
+
+export class FullMovimiento {
+    claveGrupo: string;
+    nombreGrupo: string;
+    movimientoDetalle: Movimiento[];
+}
+
 export class Temporada {
     id: number;
     nombre: string;
     activa: boolean;
     descripcion: string;
     escenarios: Escenario[];
-    movimientos: Record<string, Dupla[]>;
+    movimientos: FullMovimiento[];
 }
 
 export class Liga {

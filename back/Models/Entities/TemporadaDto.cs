@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using back.Models.DB;
 
 namespace back.Models.Entities
@@ -11,7 +12,7 @@ namespace back.Models.Entities
         public Boolean Activa { get; set; }
         public string Descripcion { get; set;}
         public EscenarioDto[] Escenarios { get; set;}
-        public Dictionary<string, DuplaDto[]> Movimientos { get; set;}
+        public FullMovimientoDto[] Movimientos { get; set;}
 
         public TemporadaDto(int Activa) {
             this.Activa = Activa > 0;
@@ -19,22 +20,36 @@ namespace back.Models.Entities
 
         public void GeneraMovimientos(Movimiento[] movimientosBD) {
             List<DuplaDto> listaTemp = null;
-            Dictionary<string, DuplaDto[]> respuesta = new();
+            List<FullMovimientoDto> movimientos = new();
 
             foreach(Movimiento movimientoBD in movimientosBD) {
-                if (respuesta.ContainsKey(movimientoBD.TipoMovimiento.Clave)) {
-                    listaTemp = new(respuesta[movimientoBD.TipoMovimiento.Clave]);
-                    listaTemp.Add(new DuplaDto(movimientoBD));
-                    respuesta[movimientoBD.TipoMovimiento.Clave] = listaTemp.ToArray();
+                FullMovimientoDto temporal = movimientos
+                    .FirstOrDefault(fm => fm.ClaveGrupo.Equals(movimientoBD.TipoMovimiento.Clave))
+                ;
+                List<MovimientoDto> detalles = new();
+
+                if (temporal == null) {
+                    temporal = new FullMovimientoDto() {
+                        ClaveGrupo = movimientoBD.TipoMovimiento.Clave,
+                        NombreGrupo = movimientoBD.TipoMovimiento.Nombre,
+                    };
                 }
                 else {
-                    listaTemp = new();
-                    listaTemp.Add(new DuplaDto(movimientoBD));
-                    respuesta.Add(movimientoBD.TipoMovimiento.Clave, listaTemp.ToArray());
+                    movimientos.Remove(temporal);
+                    detalles = new(temporal.MovimientoDetalle);
                 }
+                
+                detalles.Add(new MovimientoDto(){
+                    TipoMovimientoClave = movimientoBD.TipoMovimiento.Clave,
+                    EquipoFuente = movimientoBD.EquipoFuente,
+                    EquipoDestino = movimientoBD.EquipoDestino
+                });
+
+                temporal.MovimientoDetalle = detalles.ToArray();
+                movimientos.Add(temporal);
             }
 
-            Movimientos = respuesta;
-        }
+            Movimientos = movimientos.ToArray();           
+       }
     }
 }

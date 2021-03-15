@@ -10,6 +10,8 @@ namespace back.Models.Entities
         public string EquipoFuente { get; set; }
         public string EquipoDestino { get; set; }
 
+        public MovimientoDto() {}
+
         public MovimientoDto(TipoMovimiento tipoMov) {
             this.TipoMovimientoClave = tipoMov.Clave;
         }

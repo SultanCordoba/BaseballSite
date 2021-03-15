@@ -5,17 +5,33 @@
 
     <div *ngIf="temporada.movimientos">
         <h2>Movimientos de equipos</h2>
-
-        <ul>
-            <li *ngFor="let key of objectKeys(temporada.movimientos)">
-                {{key}}
-            </li>
-        </ul>    
+        <div fxLayout="row" fxLayoutGap="10px">
+            <mat-card *ngFor="let grupo of temporada.movimientos">
+                <mat-card-header>
+                    <mat-card-title>{{grupo.nombreGrupo}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list role="list" *ngIf="grupo.claveGrupo!='CAMBIO'">
+                        <mat-list-item role="listitem" *ngFor="let element of grupo.movimientoDetalle">
+                            {{element.equipoFuente}}
+                        </mat-list-item>
+                    </mat-list>
+                    <mat-list role="list" *ngIf="grupo.claveGrupo=='CAMBIO'">
+                        <mat-list-item role="listitem" *ngFor="let element of grupo.movimientoDetalle">
+                            {{element.equipoFuente}} se convierte en {{element.equipoDestino}}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card> 
+        </div>
     </div>
 
-    <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
-        <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
-            <app-escenario [escenario]="element"></app-escenario>
-        </mat-tab>
-    </mat-tab-group>
+    <div *ngIf="temporada.escenarios">
+        <h2>Escenarios</h2>
+        <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
+            <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
+                <app-escenario [escenario]="element"></app-escenario>
+            </mat-tab>
+        </mat-tab-group>    
+    </div>
 </div>
