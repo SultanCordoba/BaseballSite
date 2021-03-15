@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Escenario } from 'src/app/_models/liga';
 
 @Component({
   selector: 'app-escenario',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EscenarioComponent implements OnInit {
 
-  constructor() { }
+    public simulacion: Escenario;
 
-  ngOnInit(): void {
-  }
+    @Input() set escenario(value: any) {
+        this.simulacion = value;
+    }
 
+    constructor() { }
+
+    ngOnInit(): void {
+    }
 }

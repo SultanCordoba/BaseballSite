@@ -9,12 +9,14 @@ namespace back.Profiles
         public MappingProfile()
         {
             CreateMap<Liga, LigaDto>()
-                .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa));
-
+                .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa))
+                ;
             CreateMap<Temporadum, TemporadaDto>() 
-                .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa));
-
-            CreateMap<Escenario, EscenarioDto>();
+                .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa))
+                ;
+            CreateMap<Escenario, EscenarioDto>()
+                .ForCtorParam("tipoEsc", opt => opt.MapFrom(src => src.TipoEscenario))
+            ;
         }
     }    
 }

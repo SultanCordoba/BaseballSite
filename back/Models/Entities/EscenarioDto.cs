@@ -1,4 +1,5 @@
 using System;
+using back.Models.DB;
 
 namespace back.Models.Entities
 {
@@ -6,8 +7,12 @@ namespace back.Models.Entities
     {
         public long Id { get; set; }
         public string Titulo { get; set; }
-        public string TipoEscenarioDesc { get; set; }
+        public string TipoEscenarioClave { get; set; }
         public string Descripcion { get; set; }
         public string Campeon { get; set; }
+
+        public EscenarioDto(TipoEscenario tipoEsc) {
+            this.TipoEscenarioClave = tipoEsc.Clave;
+        }
     }
 }

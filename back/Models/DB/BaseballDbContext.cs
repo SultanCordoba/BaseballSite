@@ -19,8 +19,10 @@ namespace back.Models.DB
 
         public virtual DbSet<Escenario> Escenarios { get; set; }
         public virtual DbSet<Liga> Ligas { get; set; }
+        public virtual DbSet<Movimiento> Movimientos { get; set; }
         public virtual DbSet<Temporadum> Temporada { get; set; }
         public virtual DbSet<TipoEscenario> TipoEscenarios { get; set; }
+        public virtual DbSet<TipoMovimiento> TipoMovimientos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -73,6 +75,27 @@ namespace back.Models.DB
                     .HasColumnType("TEXT(10)");
             });
 
+            modelBuilder.Entity<Movimiento>(entity =>
+            {
+                entity.ToTable("Movimiento");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.TemporadaId).HasColumnName("TemporadaID");
+
+                entity.Property(e => e.TipoMovimientoId).HasColumnName("TipoMovimientoID");
+
+                entity.HasOne(d => d.Temporada)
+                    .WithMany(p => p.Movimientos)
+                    .HasForeignKey(d => d.TemporadaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.TipoMovimiento)
+                    .WithMany(p => p.Movimientos)
+                    .HasForeignKey(d => d.TipoMovimientoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
             modelBuilder.Entity<Temporadum>(entity =>
             {
                 entity.HasIndex(e => e.Id, "Temporada_ID_IDX")
@@ -101,6 +124,17 @@ namespace back.Models.DB
                 entity.Property(e => e.Clave).IsRequired();
 
                 entity.Property(e => e.Descripcion).IsRequired();
+            });
+
+            modelBuilder.Entity<TipoMovimiento>(entity =>
+            {
+                entity.ToTable("TipoMovimiento");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Clave).IsRequired();
+
+                entity.Property(e => e.Nombre).IsRequired();
             });
 
             OnModelCreatingPartial(modelBuilder);

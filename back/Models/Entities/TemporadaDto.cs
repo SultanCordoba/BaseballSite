@@ -9,6 +9,7 @@ namespace back.Models.Entities
         public Boolean Activa { get; set; }
         public string Descripcion { get; set;}
         public EscenarioDto[] Escenarios { get; set;}
+        public MovimientoDto[] Movimientos { get; set;}
 
         public TemporadaDto(int Activa) {
             this.Activa = Activa > 0;

@@ -20,16 +20,19 @@ namespace back.Services
 
         public async Task<TemporadaDto> getTemporada(int id)
         {
-            Temporadum temporada = await _contexto.Temporada.FirstOrDefaultAsync(t => t.Id == id);
+            Temporadum temporada = await _contexto.Temporada
+                .Include(t => t.Escenarios)
+                .ThenInclude(e => e.TipoEscenario)
+                .FirstOrDefaultAsync(t => t.Id == id);
             TemporadaDto respuesta = _mapper.Map<Temporadum, TemporadaDto>(temporada);
-            Escenario[] escenarios = await _contexto.Escenarios
+            /* Escenario[] escenarios = await _contexto.Escenarios
                 .Where(e => e.TemporadaId == id)
                 .ToArrayAsync()
             ;
 
             if (escenarios.Length > 0) {
                 respuesta.Escenarios = _mapper.Map<Escenario[], EscenarioDto[]>(escenarios);
-            }           
+            }  */         
 
             return respuesta;
         }

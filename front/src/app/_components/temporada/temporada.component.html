@@ -5,9 +5,7 @@
     
     <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
         <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
-            <div *ngIf="element.campeon">
-                <strong>Campeón:</strong> {{element.campeon}}
-            </div>
+            <app-escenario [escenario]="element"></app-escenario>
         </mat-tab>
     </mat-tab-group>
 </div>
