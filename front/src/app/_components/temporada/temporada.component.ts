@@ -25,6 +25,10 @@ export class TemporadaComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (!!this.temporadaSubscripcion) this.temporadaSubscripcion.unsubscribe();
+  }
+
   public refrescar() {
     this.temporadaSubscripcion = this.temporadaServicio.getTemporada(this.temporadaId).subscribe(
         temporada => this.temporada = temporada

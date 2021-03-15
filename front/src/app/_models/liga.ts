@@ -1,7 +1,9 @@
+
 export class Temporada {
     id: number;
     nombre: string;
     activa: boolean;
+    descripcion: string;
 }
 
 export class Liga {

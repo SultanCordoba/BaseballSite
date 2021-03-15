@@ -17,8 +17,10 @@ namespace back.Models.DB
         {
         }
 
+        public virtual DbSet<Escenario> Escenarios { get; set; }
         public virtual DbSet<Liga> Ligas { get; set; }
         public virtual DbSet<Temporadum> Temporada { get; set; }
+        public virtual DbSet<TipoEscenario> TipoEscenarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,6 +32,29 @@ namespace back.Models.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Escenario>(entity =>
+            {
+                entity.ToTable("Escenario");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.TemporadaId).HasColumnName("TemporadaID");
+
+                entity.Property(e => e.TipoEscenarioId).HasColumnName("TipoEscenarioID");
+
+                entity.Property(e => e.Titulo).IsRequired();
+
+                entity.HasOne(d => d.Temporada)
+                    .WithMany(p => p.Escenarios)
+                    .HasForeignKey(d => d.TemporadaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
+                entity.HasOne(d => d.TipoEscenario)
+                    .WithMany(p => p.Escenarios)
+                    .HasForeignKey(d => d.TipoEscenarioId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
             modelBuilder.Entity<Liga>(entity =>
             {
                 entity.ToTable("Liga");
@@ -67,6 +92,15 @@ namespace back.Models.DB
                     .WithMany(p => p.Temporada)
                     .HasForeignKey(d => d.LigaId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<TipoEscenario>(entity =>
+            {
+                entity.ToTable("TipoEscenario");
+
+                entity.Property(e => e.Clave).IsRequired();
+
+                entity.Property(e => e.Descripcion).IsRequired();
             });
 
             OnModelCreatingPartial(modelBuilder);

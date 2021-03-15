@@ -5,21 +5,17 @@ using System.Collections.Generic;
 
 namespace back.Models.DB
 {
-    public partial class Temporadum
+    public partial class TipoEscenario
     {
-        public Temporadum()
+        public TipoEscenario()
         {
             Escenarios = new HashSet<Escenario>();
         }
 
         public long Id { get; set; }
-        public long LigaId { get; set; }
-        public string Nombre { get; set; }
-        public long Activa { get; set; }
-        public string FechaInicio { get; set; }
+        public string Clave { get; set; }
         public string Descripcion { get; set; }
 
-        public virtual Liga Liga { get; set; }
         public virtual ICollection<Escenario> Escenarios { get; set; }
     }
 }

@@ -17,13 +17,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { EscenarioComponent } from './_components/escenario/escenario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
     LigasComponent,
-    TemporadaComponent
+    TemporadaComponent,
+    EscenarioComponent
   ],
   imports: [
     BrowserModule,

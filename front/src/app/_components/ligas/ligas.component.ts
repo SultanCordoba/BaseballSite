@@ -26,7 +26,7 @@ export class LigasComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.ligaSuscripcion.unsubscribe();
+    if (!!this.ligaSuscripcion) this.ligaSuscripcion.unsubscribe();
   }
 
   private refrescar() {
