@@ -21,7 +21,7 @@ namespace back.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<TemporadaDto> GetLiga(int id) {
+        public async Task<TemporadaDto> GetTemporada(int id) {
             return await _temporadaService.getTemporada(id);
         }
     }

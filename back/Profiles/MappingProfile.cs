@@ -13,6 +13,8 @@ namespace back.Profiles
 
             CreateMap<Temporadum, TemporadaDto>() 
                 .ForCtorParam("Activa", opt => opt.MapFrom(src => src.Activa));
+
+            CreateMap<Escenario, EscenarioDto>();
         }
     }    
 }

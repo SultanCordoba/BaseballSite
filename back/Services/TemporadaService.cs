@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using back.Models.DB;
@@ -21,6 +22,14 @@ namespace back.Services
         {
             Temporadum temporada = await _contexto.Temporada.FirstOrDefaultAsync(t => t.Id == id);
             TemporadaDto respuesta = _mapper.Map<Temporadum, TemporadaDto>(temporada);
+            Escenario[] escenarios = await _contexto.Escenarios
+                .Where(e => e.TemporadaId == id)
+                .ToArrayAsync()
+            ;
+
+            if (escenarios.Length > 0) {
+                respuesta.Escenarios = _mapper.Map<Escenario[], EscenarioDto[]>(escenarios);
+            }           
 
             return respuesta;
         }
