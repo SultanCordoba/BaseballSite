@@ -30,15 +30,17 @@ namespace back.Services
         {
             LigaDto respuesta = null;
 
-            Liga fuente = await _contexto.Ligas.FirstOrDefaultAsync(l => l.Id == id);
+            Liga fuente = await _contexto.Ligas
+                .Include(l => l.Temporada)
+                .FirstOrDefaultAsync(l => l.Id == id);
             if (fuente != null) {
                 respuesta = _mapper.Map<Liga, LigaDto>(fuente);
-                Temporadum[] fuenteTemp = await _contexto.Temporada.Where
-                    (p => p.LigaId == fuente.Id).ToArrayAsync();
+                // Temporadum[] fuenteTemp = await _contexto.Temporada.Where
+                //     (p => p.LigaId == fuente.Id).ToArrayAsync();
 
-                if (fuenteTemp != null) {
-                    respuesta.Temporadas = _mapper.Map<Temporadum[], TemporadaDto[]>(fuenteTemp);
-                }
+                // if (fuenteTemp != null) {
+                //     respuesta.Temporadas = _mapper.Map<Temporadum[], TemporadaDto[]>(fuenteTemp);
+                // }
             }
 
             return respuesta;

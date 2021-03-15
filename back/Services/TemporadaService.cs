@@ -19,9 +19,8 @@ namespace back.Services
 
         public async Task<TemporadaDto> getTemporada(int id)
         {
-            TemporadaDto respuesta;
             Temporadum temporada = await _contexto.Temporada.FirstOrDefaultAsync(t => t.Id == id);
-            respuesta = _mapper.Map<Temporadum, TemporadaDto>(temporada);
+            TemporadaDto respuesta = _mapper.Map<Temporadum, TemporadaDto>(temporada);
 
             return respuesta;
         }
