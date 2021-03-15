@@ -1,3 +1,13 @@
-<h2>Temporada {{temporada.nombre}}</h2>
+<div *ngIf="temporada">
+    <h2>Temporada {{temporada.nombre}}</h2>
 
-<div [innerHtml]="temporada.descripcion"></div>
+    <div [innerHtml]="temporada.descripcion"></div>
+    
+    <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
+        <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
+            <div *ngIf="element.campeon">
+                <strong>Campeón:</strong> {{element.campeon}}
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule } from '@angular/common/http';
 
 import { LigasComponent } from './_components/ligas/ligas.component';
 import { TemporadaComponent } from './_components/temporada/temporada.component';
-import { HttpClientModule } from '@angular/common/http';
+import { EscenarioComponent } from './_components/escenario/escenario.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { EscenarioComponent } from './_components/escenario/escenario.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { EscenarioComponent } from './_components/escenario/escenario.component'
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
