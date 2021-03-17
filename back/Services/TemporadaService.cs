@@ -35,6 +35,18 @@ namespace back.Services
             ;
             respuesta.GeneraMovimientos(movimientos);
 
+            Lidere[] lideres = await _contexto.Lideres
+                .Where(l => l.TemporadaId == id)
+                .OrderBy(l => l.Categoria)
+                .ThenBy(l => l.Rubro)
+                .ThenBy(l => l.Jugador)
+                .ToArrayAsync();
+
+            if (lideres.Length > 0) {
+                LiderDto[] lideresDto = _mapper.Map<Lidere[], LiderDto[]>(lideres);
+                respuesta.GeneraLideres(lideresDto);
+            }
+
             return respuesta;
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using back.Models.DB;
 
 namespace back.Models.Entities
@@ -13,13 +14,15 @@ namespace back.Models.Entities
         public string Descripcion { get; set;}
         public EscenarioDto[] Escenarios { get; set;}
         public FullMovimientoDto[] Movimientos { get; set;}
+        
+        [IgnoreMap]
+        public LiderTemporadaDto Lideres { get; set;}
 
         public TemporadaDto(int Activa) {
             this.Activa = Activa > 0;
         }
 
         public void GeneraMovimientos(Movimiento[] movimientosBD) {
-            List<DuplaDto> listaTemp = null;
             List<FullMovimientoDto> movimientos = new();
 
             foreach(Movimiento movimientoBD in movimientosBD) {
@@ -50,6 +53,25 @@ namespace back.Models.Entities
             }
 
             Movimientos = movimientos.ToArray();           
-       }
+        }
+
+        public void GeneraLideres(LiderDto[] lideres) {
+            Lideres = new();
+            List<LiderDto> bateo = new();
+            List<LiderDto> pitcheo = new();
+
+            foreach(LiderDto lider in lideres) {
+                if (lider.Categoria.Equals("Bateo")) {
+                    bateo.Add(lider);
+                }
+
+                if (lider.Categoria.Equals("Pitcheo")) {
+                    pitcheo.Add(lider);
+                }
+            }
+
+            Lideres.Bateo = bateo.ToArray();
+            Lideres.Pitcheo = pitcheo.ToArray();
+        }
     }
 }

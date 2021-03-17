@@ -18,6 +18,7 @@ namespace back.Models.DB
         }
 
         public virtual DbSet<Escenario> Escenarios { get; set; }
+        public virtual DbSet<Lidere> Lideres { get; set; }
         public virtual DbSet<Liga> Ligas { get; set; }
         public virtual DbSet<Movimiento> Movimientos { get; set; }
         public virtual DbSet<Temporadum> Temporada { get; set; }
@@ -54,6 +55,24 @@ namespace back.Models.DB
                 entity.HasOne(d => d.TipoEscenario)
                     .WithMany(p => p.Escenarios)
                     .HasForeignKey(d => d.TipoEscenarioId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<Lidere>(entity =>
+            {
+                entity.Property(e => e.Categoria).IsRequired();
+
+                entity.Property(e => e.Equipo).IsRequired();
+
+                entity.Property(e => e.Jugador).IsRequired();
+
+                entity.Property(e => e.Rubro).IsRequired();
+
+                entity.Property(e => e.TemporadaId).HasColumnName("Temporada_Id");
+
+                entity.HasOne(d => d.Temporada)
+                    .WithMany(p => p.Lideres)
+                    .HasForeignKey(d => d.TemporadaId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 

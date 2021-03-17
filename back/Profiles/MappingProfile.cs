@@ -17,6 +17,7 @@ namespace back.Profiles
             CreateMap<Escenario, EscenarioDto>()
                 .ForCtorParam("tipoEsc", opt => opt.MapFrom(src => src.TipoEscenario))
             ;
+            CreateMap<Lidere, LiderDto>();
         }
     }    
 }

@@ -10,6 +10,7 @@ namespace back.Models.DB
         public Temporadum()
         {
             Escenarios = new HashSet<Escenario>();
+            Lideres = new HashSet<Lidere>();
             Movimientos = new HashSet<Movimiento>();
         }
 
@@ -22,6 +23,7 @@ namespace back.Models.DB
 
         public virtual Liga Liga { get; set; }
         public virtual ICollection<Escenario> Escenarios { get; set; }
+        public virtual ICollection<Lidere> Lideres { get; set; }
         public virtual ICollection<Movimiento> Movimientos { get; set; }
     }
 }
