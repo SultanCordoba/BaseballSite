@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { matTabsAnimations } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Lider, Temporada } from 'src/app/_models/liga';
@@ -21,6 +22,7 @@ export class TemporadaComponent implements OnInit {
     displayedColumns: string[] = ['rubro', 'jugador', 'valor'];
     dataSourceBateo: MatTableDataSource<Lider>;
     dataSourcePitcheo: MatTableDataSource<Lider>;
+    dataSourceFildeo: MatTableDataSource<Lider>;
 
     constructor(private temporadaServicio: TemporadaService,
         private route: ActivatedRoute) { }
@@ -42,6 +44,7 @@ export class TemporadaComponent implements OnInit {
                 this.temporada = temporada;
                 this.dataSourceBateo = new MatTableDataSource(temporada.lideres.bateo);
                 this.dataSourcePitcheo = new MatTableDataSource(temporada.lideres.pitcheo);
+                this.dataSourceFildeo = new MatTableDataSource(temporada.lideres.fildeo);
             }
         );
     }

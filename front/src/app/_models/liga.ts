@@ -35,6 +35,7 @@ export class Lider {
 export class LiderTemporada {
     bateo: Lider[];
     pitcheo: Lider[];
+    fildeo: Lider[];
 }
 
 export class Temporada {

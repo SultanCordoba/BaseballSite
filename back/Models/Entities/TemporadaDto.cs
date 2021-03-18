@@ -59,19 +59,27 @@ namespace back.Models.Entities
             Lideres = new();
             List<LiderDto> bateo = new();
             List<LiderDto> pitcheo = new();
+            List<LiderDto> fildeo = new();
 
             foreach(LiderDto lider in lideres) {
-                if (lider.Categoria.Equals("Bateo")) {
-                    bateo.Add(lider);
-                }
+                switch (lider.Categoria) {
+                    case "Bateo":
+                        bateo.Add(lider);
+                        break;
 
-                if (lider.Categoria.Equals("Pitcheo")) {
-                    pitcheo.Add(lider);
+                    case "Pitcheo":
+                        pitcheo.Add(lider);
+                        break;
+
+                    case "Fildeo":
+                        fildeo.Add(lider);
+                        break;
                 }
             }
 
             Lideres.Bateo = bateo.ToArray();
             Lideres.Pitcheo = pitcheo.ToArray();
+            Lideres.Fildeo = fildeo.ToArray();
         }
     }
 }

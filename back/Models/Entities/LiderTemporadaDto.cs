@@ -7,5 +7,6 @@ namespace back.Models.Entities
     {
         public LiderDto[] Bateo { get; set; } 
         public LiderDto[] Pitcheo { get; set; }
+        public LiderDto[] Fildeo { get; set; }
     }
 }
