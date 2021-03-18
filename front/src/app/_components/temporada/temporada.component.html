@@ -3,35 +3,80 @@
 
     <div [innerHtml]="temporada.descripcion"></div>
 
-    <div *ngIf="temporada.movimientos">
-        <h2>Movimientos de equipos</h2>
-        <div fxLayout="row" fxLayoutGap="10px">
-            <mat-card *ngFor="let grupo of temporada.movimientos">
-                <mat-card-header>
-                    <mat-card-title>{{grupo.nombreGrupo}}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-list role="list" *ngIf="grupo.claveGrupo!='CAMBIO'">
-                        <mat-list-item role="listitem" *ngFor="let element of grupo.movimientoDetalle">
-                            {{element.equipoFuente}}
-                        </mat-list-item>
-                    </mat-list>
-                    <mat-list role="list" *ngIf="grupo.claveGrupo=='CAMBIO'">
-                        <mat-list-item role="listitem" *ngFor="let element of grupo.movimientoDetalle">
-                            {{element.equipoFuente}} se convierte en {{element.equipoDestino}}
-                        </mat-list-item>
-                    </mat-list>
-                </mat-card-content>
-            </mat-card> 
-        </div>
-    </div>
-
-    <div *ngIf="temporada.escenarios">
-        <h2>Escenarios</h2>
-        <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
-            <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
-                <app-escenario [escenario]="element"></app-escenario>
-            </mat-tab>
-        </mat-tab-group>    
-    </div>
+    <mat-tab-group>
+        <mat-tab *ngIf="temporada.movimientos" label="Movimientos de equipos">
+            <div fxLayout="row" fxLayoutGap="10px">
+                <mat-card *ngFor="let grupo of temporada.movimientos">
+                    <mat-card-header>
+                        <mat-card-title>{{grupo.nombreGrupo}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-list role="list" *ngIf="grupo.claveGrupo!='CAMBIO'">
+                            <mat-list-item role="listitem" *ngFor="let element of grupo.movimientoDetalle">
+                                {{element.equipoFuente}}
+                            </mat-list-item>
+                        </mat-list>
+                        <mat-list role="list" *ngIf="grupo.claveGrupo=='CAMBIO'">
+                            <mat-list-item role="listitem" *ngFor="let element of grupo.movimientoDetalle">
+                                {{element.equipoFuente}} se convierte en {{element.equipoDestino}}
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card-content>
+                </mat-card> 
+            </div>    
+        </mat-tab>  
+        <mat-tab label="Líderes" *ngIf="temporada.lideres">
+            <div fxLayout="row" fxLayoutGap="10px">
+                <div fxLayout="column" *ngIf="temporada.lideres.bateo">
+                    <h3>BATEO</h3>
+                    <table mat-table [dataSource]="dataSourceBateo" class="mat-elevation-z8">
+                        <tr style="display:none!important">
+                            <ng-container matColumnDef="rubro">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-center"> RUBRO </th>
+                                <td mat-cell *matCellDef="let element" class="rubro"> {{element.rubro}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jugador">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-center"> JUGADOR </th>
+                                <td mat-cell *matCellDef="let element"> {{element.jugador}} ({{element.equipo}}) </td>
+                            </ng-container>
+                            <ng-container matColumnDef="valor">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header  class="align-center"> VALOR </th>
+                                <td mat-cell *matCellDef="let element" class="align-right"> {{element.valor}} </td>
+                            </ng-container>
+                        </tr>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>    
+                </div>
+                <div fxLayout="column" *ngIf="temporada.lideres.pitcheo">
+                    <h3>PITCHEO</h3>
+                    <table mat-table [dataSource]="dataSourcePitcheo" class="mat-elevation-z8">
+                        <tr style="display:none!important">
+                            <ng-container matColumnDef="rubro">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-center"> RUBRO </th>
+                                <td mat-cell *matCellDef="let element" class="rubro"> {{element.rubro}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="jugador">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-center"> JUGADOR </th>
+                                <td mat-cell *matCellDef="let element"> {{element.jugador}} ({{element.equipo}}) </td>
+                            </ng-container>
+                            <ng-container matColumnDef="valor">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header  class="align-center"> VALOR </th>
+                                <td mat-cell *matCellDef="let element" class="align-right"> {{element.valor}} </td>
+                            </ng-container>
+                        </tr>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>    
+                </div>
+            </div> 
+        </mat-tab>      
+        <mat-tab *ngIf="temporada.escenarios" label="Escenarios">
+            <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
+                <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
+                    <app-escenario [escenario]="element"></app-escenario>
+                </mat-tab>
+            </mat-tab-group>                
+        </mat-tab>
+    </mat-tab-group>
 </div>

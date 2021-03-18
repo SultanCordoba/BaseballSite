@@ -20,6 +20,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -45,6 +46,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatGridListModule,
     MatTabsModule,
     MatCardModule,
+    MatTableModule,
     FlexLayoutModule
   ],
   providers: [],

@@ -70,6 +70,8 @@ namespace back.Models.DB
 
                 entity.Property(e => e.TemporadaId).HasColumnName("Temporada_Id");
 
+                entity.Property(e => e.Valor).IsRequired();
+
                 entity.HasOne(d => d.Temporada)
                     .WithMany(p => p.Lideres)
                     .HasForeignKey(d => d.TemporadaId)

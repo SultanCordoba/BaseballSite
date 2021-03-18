@@ -23,6 +23,20 @@ export class FullMovimiento {
     movimientoDetalle: Movimiento[];
 }
 
+export class Lider {
+    categoria: string;
+    jugador: string;
+    orden: number;
+    equipo: string;
+    rubro: string;
+    valor: string;
+}
+
+export class LiderTemporada {
+    bateo: Lider[];
+    pitcheo: Lider[];
+}
+
 export class Temporada {
     id: number;
     nombre: string;
@@ -30,6 +44,7 @@ export class Temporada {
     descripcion: string;
     escenarios: Escenario[];
     movimientos: FullMovimiento[];
+    lideres: LiderTemporada;
 }
 
 export class Liga {

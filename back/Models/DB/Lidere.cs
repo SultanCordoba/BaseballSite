@@ -10,10 +10,11 @@ namespace back.Models.DB
         public long Id { get; set; }
         public long TemporadaId { get; set; }
         public string Categoria { get; set; }
+        public long Orden { get; set; }
         public string Rubro { get; set; }
         public string Jugador { get; set; }
         public string Equipo { get; set; }
-        public double Valor { get; set; }
+        public string Valor { get; set; }
 
         public virtual Temporadum Temporada { get; set; }
     }

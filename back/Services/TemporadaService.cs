@@ -38,8 +38,7 @@ namespace back.Services
             Lidere[] lideres = await _contexto.Lideres
                 .Where(l => l.TemporadaId == id)
                 .OrderBy(l => l.Categoria)
-                .ThenBy(l => l.Rubro)
-                .ThenBy(l => l.Jugador)
+                .ThenBy(l => l.Orden)
                 .ToArrayAsync();
 
             if (lideres.Length > 0) {
