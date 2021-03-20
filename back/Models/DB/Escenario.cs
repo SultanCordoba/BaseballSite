@@ -7,6 +7,11 @@ namespace back.Models.DB
 {
     public partial class Escenario
     {
+        public Escenario()
+        {
+            Etapas = new HashSet<Etapa>();
+        }
+
         public long Id { get; set; }
         public string Titulo { get; set; }
         public long TemporadaId { get; set; }
@@ -16,5 +21,6 @@ namespace back.Models.DB
 
         public virtual Temporadum Temporada { get; set; }
         public virtual TipoEscenario TipoEscenario { get; set; }
+        public virtual ICollection<Etapa> Etapas { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 
     <div [innerHtml]="temporada.descripcion"></div>
 
-    <mat-tab-group>
+    <mat-tab-group dynamicHeight>
         <mat-tab *ngIf="temporada.movimientos" label="Movimientos de equipos">
             <div fxLayout="row" fxLayoutGap="10px">
                 <mat-card *ngFor="let grupo of temporada.movimientos">
@@ -93,7 +93,7 @@
             </div> 
         </mat-tab>      
         <mat-tab *ngIf="temporada.escenarios" label="Escenarios">
-            <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px">
+            <mat-tab-group *ngIf="temporada.escenarios" style="margin:5px" dynamicHeight>
                 <mat-tab *ngFor="let element of temporada.escenarios" label="{{element.titulo}}">
                     <app-escenario [escenario]="element"></app-escenario>
                 </mat-tab>

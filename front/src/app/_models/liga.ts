@@ -1,9 +1,19 @@
+export class GrupoDto {
+    nombreGrupo: string;
+}
+
+export class EtapaDto {
+    nombreEtapa: string;
+    grupos: GrupoDto[];
+}
+
 export class Escenario {
     id: number;
     titulo: string;
     tipoEscenarioDesc: string;
     descripcion: string;
     campeon: string;
+    etapas: EtapaDto[];
 }
 
 export class Dupla {

@@ -1,3 +1,15 @@
-<div *ngIf="simulacion.campeon">
-    <strong>Campeón:</strong> {{simulacion.campeon}}
+<div fxLayout="column" fxLayoutGap="15px">
+    <div *ngIf="simulacion.etapas" fxLayout="row" fxLayoutGap="15px">
+        <div fxLayout="column" *ngFor="let etapa of simulacion.etapas" fxLayoutGap="5px">
+            <h2>{{etapa.nombreEtapa}}</h2>
+            <mat-card *ngFor="let grupo of etapa.grupos">
+                <mat-card-header>
+                    <mat-card-title>{{grupo.nombreGrupo}}</mat-card-title>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="simulacion.campeon">
+        <strong>Campeón:</strong> {{simulacion.campeon}}
+    </div>    
 </div>
