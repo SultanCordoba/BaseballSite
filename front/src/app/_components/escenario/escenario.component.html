@@ -1,11 +1,11 @@
 <div fxLayout="column" fxLayoutGap="15px">
     <div *ngIf="simulacion.etapas" fxLayout="row" fxLayoutGap="15px">
-        <div fxLayout="column" *ngFor="let etapa of simulacion.etapas" fxLayoutGap="5px">
+        <div fxLayout="column" *ngFor="let etapa of simulacion.etapas" fxLayoutGap="4px" fxFlex="20%">
             <h2>{{etapa.nombreEtapa}}</h2>
-            <mat-card *ngFor="let grupo of etapa.grupos">
-                <mat-card-header>
-                    <mat-card-title>{{grupo.nombreGrupo}}</mat-card-title>
-                </mat-card-header>
+            <mat-card>
+                <mat-card-content *ngFor="let grupo of etapa.grupos">
+                    <app-escenario-grupo [grupo]="grupo"></app-escenario-grupo>
+                </mat-card-content>
             </mat-card>
         </div>
     </div>

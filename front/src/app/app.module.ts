@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EscenarioGrupoComponent } from './_components/escenario/escenario-grupo/escenario-grupo.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MainNavComponent,
     LigasComponent,
     TemporadaComponent,
-    EscenarioComponent
+    EscenarioComponent,
+    EscenarioGrupoComponent
   ],
   imports: [
     BrowserModule,

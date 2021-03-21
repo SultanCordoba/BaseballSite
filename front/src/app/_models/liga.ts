@@ -1,5 +1,16 @@
+export class Standing {
+    equipo: string; 
+    abrev: string;
+    ganados: string;
+    perdidos: string;
+    empates: string;
+    pctje: string;
+    juegosDetras: string;
+}
+
 export class GrupoDto {
     nombreGrupo: string;
+    standings: Standing[];
 }
 
 export class EtapaDto {

@@ -17,6 +17,6 @@ export class EscenarioComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        console.warn(JSON.stringify(this.simulacion));
+
     }
 }
