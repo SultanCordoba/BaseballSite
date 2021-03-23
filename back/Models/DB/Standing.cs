@@ -15,7 +15,6 @@ namespace back.Models.DB
         public long Perdidos { get; set; }
         public long? Empates { get; set; }
         public string Grupo { get; set; }
-        public string SubGrupo { get; set; }
 
         public virtual Etapa Etapa { get; set; }
     }

@@ -18,6 +18,7 @@ namespace back.Models.DB
         {
         }
 
+        public virtual DbSet<Acontecimiento> Acontecimientos { get; set; }
         public virtual DbSet<Escenario> Escenarios { get; set; }
         public virtual DbSet<Etapa> Etapas { get; set; }
         public virtual DbSet<Lidere> Lideres { get; set; }
@@ -27,7 +28,6 @@ namespace back.Models.DB
         public virtual DbSet<Temporadum> Temporada { get; set; }
         public virtual DbSet<TipoEscenario> TipoEscenarios { get; set; }
         public virtual DbSet<TipoMovimiento> TipoMovimientos { get; set; }
-
 
         // Entity Keyless
         public virtual DbSet<StandingVista> StandingVistas  { get; set;}
@@ -40,8 +40,26 @@ namespace back.Models.DB
             }
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Acontecimiento>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Fecha).HasColumnName("fecha");
+
+                entity.Property(e => e.TemporadaId).HasColumnName("temporada_id");
+
+                entity.Property(e => e.Texto)
+                    .IsRequired()
+                    .HasColumnName("texto");
+
+                entity.HasOne(d => d.Temporada)
+                    .WithMany(p => p.Acontecimientos)
+                    .HasForeignKey(d => d.TemporadaId);
+            });
+
             modelBuilder.Entity<Escenario>(entity =>
             {
                 entity.ToTable("Escenario");
@@ -78,6 +96,8 @@ namespace back.Models.DB
                     .HasColumnName("nombre");
 
                 entity.Property(e => e.Orden).HasColumnName("orden");
+
+                entity.Property(e => e.TipoEtapa).HasColumnName("tipoEtapa");
 
                 entity.HasOne(d => d.Escenario)
                     .WithMany(p => p.Etapas)
@@ -171,8 +191,6 @@ namespace back.Models.DB
                     .HasColumnName("grupo");
 
                 entity.Property(e => e.Perdidos).HasColumnName("perdidos");
-
-                entity.Property(e => e.SubGrupo).HasColumnName("subGrupo");
 
                 entity.HasOne(d => d.Etapa)
                     .WithMany(p => p.Standings)

@@ -16,6 +16,7 @@ namespace back.Models.DB
         public long EscenarioId { get; set; }
         public string Nombre { get; set; }
         public long Orden { get; set; }
+        public string TipoEtapa { get; set; }
 
         public virtual Escenario Escenario { get; set; }
         public virtual ICollection<Standing> Standings { get; set; }

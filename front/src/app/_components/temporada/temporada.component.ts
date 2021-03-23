@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { matTabsAnimations } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Lider, Temporada } from 'src/app/_models/liga';
+import { CompartirService } from 'src/app/_services/compartir.service';
 import { TemporadaService } from 'src/app/_services/temporada.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class TemporadaComponent implements OnInit {
     dataSourceFildeo: MatTableDataSource<Lider>;
 
     constructor(private temporadaServicio: TemporadaService,
+        private compartirService: CompartirService,
         private route: ActivatedRoute) { }
 
     ngOnInit(): void {
@@ -42,9 +44,14 @@ export class TemporadaComponent implements OnInit {
         this.temporadaSubscripcion = this.temporadaServicio.getTemporada(this.temporadaId).subscribe(
             temporada => {
                 this.temporada = temporada;
-                this.dataSourceBateo = new MatTableDataSource(temporada.lideres.bateo);
-                this.dataSourcePitcheo = new MatTableDataSource(temporada.lideres.pitcheo);
-                this.dataSourceFildeo = new MatTableDataSource(temporada.lideres.fildeo);
+                let titulo = "Temporada " + temporada.nombre;
+                this.compartirService.anuncioTitulo(titulo);
+
+                if (temporada.lideres) {
+                    this.dataSourceBateo = new MatTableDataSource(temporada.lideres.bateo);
+                    this.dataSourcePitcheo = new MatTableDataSource(temporada.lideres.pitcheo);
+                    this.dataSourceFildeo = new MatTableDataSource(temporada.lideres.fildeo);    
+                }
             }
         );
     }

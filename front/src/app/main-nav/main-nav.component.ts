@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Liga } from '../_models/liga';
 import { LigaService } from '../_services/liga.service';
+import { CompartirService } from '../_services/compartir.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -20,8 +21,18 @@ export class MainNavComponent implements OnInit {
 
     ligas: Liga[];
 
+    public titulo: string;
+    tituloSubscription: Subscription;
+
   constructor(private breakpointObserver: BreakpointObserver,
-    private ligaService: LigaService) {}
+    private ligaService: LigaService,
+    private compartirService: CompartirService) {
+        this.tituloSubscription = compartirService.tituloNav$.subscribe(
+            tituloNav => {
+                this.titulo = tituloNav;
+            }
+        );
+    }
 
   ngOnInit(): void {
     this.ligaService.listaLigas().subscribe(

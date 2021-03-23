@@ -1,4 +1,4 @@
-<h1>{{liga.nombre}}</h1>
+<h1 *ngIf="liga.nombre">{{liga.nombre}}</h1>
 
 <div *ngIf="!!liga.temporadas">
     <mat-grid-list cols="5" rowHeight="40px" style="margin: 0px 10px;">
