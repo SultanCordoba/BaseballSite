@@ -13,18 +13,19 @@ import { CompartirService } from '../_services/compartir.service';
 })
 export class MainNavComponent implements OnInit {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+//   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+//     .pipe(
+//       map(result => result.matches),
+//       shareReplay()
+//     );
 
     ligas: Liga[];
 
     public titulo: string;
     tituloSubscription: Subscription;
+    ligasSubscription: Subscription;
 
-  constructor(private breakpointObserver: BreakpointObserver,
+  constructor(//private breakpointObserver: BreakpointObserver,
     private ligaService: LigaService,
     private compartirService: CompartirService) {
         this.tituloSubscription = compartirService.tituloNav$.subscribe(
@@ -35,9 +36,14 @@ export class MainNavComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.ligaService.listaLigas().subscribe(
-        ligas => this.ligas = ligas
-    );
+      this.ligasSubscription = 
+        this.ligaService.listaLigas().subscribe(
+            ligas => this.ligas = ligas
+        );
   }
 
+  ngOnDestroy(): void {
+      if (this.tituloSubscription) this.tituloSubscription.unsubscribe();
+      if (this.ligasSubscription) this.ligasSubscription.unsubscribe();
+  }
 }

@@ -21,6 +21,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EscenarioGrupoComponent } from './_components/escenario/escenario-grupo/escenario-grupo.component';
@@ -49,7 +50,8 @@ import { EscenarioGrupoComponent } from './_components/escenario/escenario-grupo
     MatTabsModule,
     MatCardModule,
     MatTableModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

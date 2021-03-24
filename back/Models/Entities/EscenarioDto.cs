@@ -23,6 +23,7 @@ namespace back.Models.Entities
 
         public void GeneraStandings(StandingVista[] standings) {
             List<EtapaDto> etapasDto = new();
+            StandingVista liderGrupo = null;
 
             foreach(StandingVista standing in standings) {
                 EtapaDto etapa = etapasDto.FirstOrDefault
@@ -48,20 +49,30 @@ namespace back.Models.Entities
                         NombreGrupo = standing.NombreGrupo,
                         Standings = new List<StandingDto>()
                     };
+                    liderGrupo = standing;
                 }
                 else {
                     etapa.Grupos.Remove(grupo);
                 }
 
-                grupo.Standings.Add(
-                    new StandingDto() {
-                        Equipo = standing.Equipo,
-                        Abrev = standing.Abrev,
-                        Ganados = standing.Ganados,
-                        Perdidos = standing.Perdidos,
-                        Empates = standing.Empates
-                    }
-                );
+                StandingDto standingDto = new() {
+                    Equipo = standing.Equipo,
+                    Abrev = standing.Abrev,
+                    Ganados = standing.Ganados,
+                    Perdidos = standing.Perdidos,
+                    Empates = standing.Empates,
+                    Pctje = ((standing.Ganados * 1.0) / (standing.Ganados + standing.Perdidos))
+                        .ToString("F3")
+                };
+
+                // Determinar juegos detras
+                standingDto.JuegosDetras = ((((liderGrupo.Ganados - liderGrupo.Perdidos) - (standing.Ganados - standing.Perdidos)) * 1.0) / 2).ToString("F1");
+
+                if (standingDto.JuegosDetras.Equals("0.0")) {
+                    standingDto.JuegosDetras = string.Empty;
+                }
+
+                grupo.Standings.Add(standingDto);
 
                 etapa.Grupos.Add(grupo);
                 etapasDto.Add(etapa);

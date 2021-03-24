@@ -1,26 +1,15 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-        <a *ngFor="let elemento of ligas" mat-list-item [routerLink]="['/liga', elemento.id]">{{elemento.siglas}}</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">Menú</mat-icon>
-      </button>
-      <span>Sitio Beisbol {{titulo}}</span>
-    </mat-toolbar>
-    <!-- Add Content Here -->
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+        [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let elemento of ligas" [routerLink]="['/liga', elemento.id]">
+            {{elemento.siglas}}
+        </button>
+    </mat-menu>
+    <span>Deportes {{titulo}}</span>
+</mat-toolbar>
+<mat-card style="height: 100%;">
     <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-card>

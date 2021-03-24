@@ -15,7 +15,7 @@ export class EscenarioGrupoComponent implements OnInit {
         this.grupoEtapa = value;
     }
 
-    displayedColumns: string[] = ['equipo', 'ganados', 'perdidos'];
+    displayedColumns: string[] = ['equipo', 'ganados', 'perdidos', 'pctje', 'juegosDetras'];
     dataSource: MatTableDataSource<Standing>;
 
     constructor() { }

@@ -3,6 +3,30 @@
 }
   
 .mat-cell {
-    padding: 8px 8px 8px 0;
-    font-size: 11px;
+    padding: 8px 8px 8px 0 !important;
+    font-size: 11px !important;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.mat-header-cell.centro {
+    display: flex;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-left: 15px;
+    justify-content: center;
+}
+
+.mat-header-cell.derecha {
+    display: flex;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-right: 5px;
+    justify-content: flex-end;
 }
