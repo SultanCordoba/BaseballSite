@@ -41,10 +41,13 @@ namespace back.Services
         public async Task<TemporadaDto> getTemporada(int id)
         {
             Temporadum temporada = await _contexto.Temporada
-                // .Include(t => t.Escenarios)
-                // .ThenInclude(e => e.TipoEscenario)
                 .FirstOrDefaultAsync(t => t.Id == id);
             TemporadaDto respuesta = _mapper.Map<Temporadum, TemporadaDto>(temporada);    
+
+            Liga liga = await _contexto.Ligas
+                .Include(l => l.Deporte)
+                .FirstOrDefaultAsync(l => l.Id == temporada.LigaId);
+            respuesta.DeporteNombre = liga.Deporte.Nombre;
 
             Escenario[] escenarios = await _contexto.Escenarios
                 .Include(e => e.TipoEscenario)

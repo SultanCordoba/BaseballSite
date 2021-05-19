@@ -1,14 +1,20 @@
 <h1 *ngIf="liga.nombre">{{liga.nombre}}</h1>
 
-<div *ngIf="!!liga.temporadas">
-    <h2>Temporadas</h2>
-    <mat-grid-list cols="5" rowHeight="40px" style="margin: 0px 10px;">
-        <mat-grid-tile *ngFor="let temporada of liga.temporadas" >
-            <a *ngIf="temporada.activa" [routerLink]="['/temporada', temporada.id]">{{temporada.nombre}}</a>
-            <div *ngIf="!temporada.activa">{{temporada.nombre}}</div>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
+<mat-tab-group dynamicHeight>
+    <mat-tab *ngIf="!!liga.serieAlternas" label="What If">
+        <h2>What If</h2>
+    </mat-tab>
+    <mat-tab *ngIf="!!liga.temporadas" label="Temporadas">
+        <h2>Temporadas</h2>
+        <mat-grid-list cols="5" rowHeight="40px" style="margin: 0px 10px;">
+            <mat-grid-tile *ngFor="let temporada of liga.temporadas" >
+                <a *ngIf="temporada.activa" [routerLink]="['/temporada', temporada.id]">{{temporada.nombre}}</a>
+                <div *ngIf="!temporada.activa">{{temporada.nombre}}</div>
+            </mat-grid-tile>
+        </mat-grid-list>    
+    </mat-tab>
+</mat-tab-group>
+
 
 <h2>Reglas simulaciones</h2>
 

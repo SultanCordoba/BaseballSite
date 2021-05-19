@@ -14,6 +14,7 @@ namespace back.Models.Entities
         public string Descripcion { get; set;}
         public EscenarioDto[] Escenarios { get; set;}
         public FullMovimientoDto[] Movimientos { get; set;}
+        public string DeporteNombre { get; set; }
         
         [IgnoreMap]
         public LiderTemporadaDto Lideres { get; set;}

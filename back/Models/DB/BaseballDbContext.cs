@@ -19,17 +19,20 @@ namespace back.Models.DB
         }
 
         public virtual DbSet<Acontecimiento> Acontecimientos { get; set; }
+        public virtual DbSet<Deporte> Deportes { get; set; }
         public virtual DbSet<Escenario> Escenarios { get; set; }
         public virtual DbSet<Etapa> Etapas { get; set; }
         public virtual DbSet<Lidere> Lideres { get; set; }
         public virtual DbSet<Liga> Ligas { get; set; }
         public virtual DbSet<Movimiento> Movimientos { get; set; }
+        public virtual DbSet<SerieAltDecadum> SerieAltDecada { get; set; }
+        public virtual DbSet<SerieAlterna> SerieAlternas { get; set; }
         public virtual DbSet<Standing> Standings { get; set; }
         public virtual DbSet<Temporadum> Temporada { get; set; }
         public virtual DbSet<TipoEscenario> TipoEscenarios { get; set; }
         public virtual DbSet<TipoMovimiento> TipoMovimientos { get; set; }
 
-        // Entity Keyless
+// Entity Keyless
         public virtual DbSet<StandingVista> StandingVistas  { get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,7 +42,6 @@ namespace back.Models.DB
                 optionsBuilder.UseSqlite("name=BeisbolBase");
             }
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,6 +60,18 @@ namespace back.Models.DB
                 entity.HasOne(d => d.Temporada)
                     .WithMany(p => p.Acontecimientos)
                     .HasForeignKey(d => d.TemporadaId);
+            });
+
+            modelBuilder.Entity<Deporte>(entity =>
+            {
+                entity.ToTable("Deporte");
+
+                entity.HasIndex(e => e.Id, "Deeporte_Id_IDX")
+                    .IsUnique();
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasColumnName("nombre");
             });
 
             modelBuilder.Entity<Escenario>(entity =>
@@ -134,6 +148,8 @@ namespace back.Models.DB
 
                 entity.Property(e => e.Activa).HasDefaultValueSql("0");
 
+                entity.Property(e => e.DeporteId).HasColumnName("Deporte_Id");
+
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasColumnType("TEXT(50)");
@@ -141,6 +157,11 @@ namespace back.Models.DB
                 entity.Property(e => e.Siglas)
                     .IsRequired()
                     .HasColumnType("TEXT(10)");
+
+                entity.HasOne(d => d.Deporte)
+                    .WithMany(p => p.Ligas)
+                    .HasForeignKey(d => d.DeporteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Movimiento>(entity =>
@@ -161,6 +182,50 @@ namespace back.Models.DB
                 entity.HasOne(d => d.TipoMovimiento)
                     .WithMany(p => p.Movimientos)
                     .HasForeignKey(d => d.TipoMovimientoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<SerieAltDecadum>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Decada)
+                    .IsRequired()
+                    .HasColumnName("decada");
+
+                entity.Property(e => e.LigaId).HasColumnName("liga_id");
+
+                entity.HasOne(d => d.Liga)
+                    .WithMany(p => p.SerieAltDecada)
+                    .HasForeignKey(d => d.LigaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<SerieAlterna>(entity =>
+            {
+                entity.ToTable("SerieAlterna");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Equipo1).HasColumnName("equipo1");
+
+                entity.Property(e => e.Equipo2).HasColumnName("equipo2");
+
+                entity.Property(e => e.EscudoEquipo1).HasColumnName("escudoEquipo1");
+
+                entity.Property(e => e.EscudoEquipo2).HasColumnName("escudoEquipo2");
+
+                entity.Property(e => e.EscudoTemporada).HasColumnName("escudoTemporada");
+
+                entity.Property(e => e.SerieAltDecadaId).HasColumnName("serieAltDecada_id");
+
+                entity.Property(e => e.Temporada)
+                    .IsRequired()
+                    .HasColumnName("temporada");
+
+                entity.HasOne(d => d.SerieAltDecada)
+                    .WithMany(p => p.SerieAlternas)
+                    .HasForeignKey(d => d.SerieAltDecadaId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
@@ -200,9 +265,6 @@ namespace back.Models.DB
 
             modelBuilder.Entity<Temporadum>(entity =>
             {
-                entity.HasIndex(e => e.Id, "Temporada_ID_IDX")
-                    .IsUnique();
-
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.FechaInicio).HasColumnType("TEXT(20)");

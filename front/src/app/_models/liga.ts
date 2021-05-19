@@ -1,3 +1,16 @@
+export class SerieAlterna {
+    escudoTemporada: string;
+    equipo1: string;
+    escudoEquipo1: string;
+    equipo2: string;
+    escudoEquipo2: string;
+}
+
+export class Decada {
+    nombre: string;
+    series: SerieAlterna[];
+}
+
 export class Standing {
     equipo: string; 
     abrev: string;
@@ -67,6 +80,7 @@ export class Temporada {
     escenarios: Escenario[];
     movimientos: FullMovimiento[];
     lideres: LiderTemporada;
+    deporteNombre: string;
 }
 
 export class Liga {
@@ -75,4 +89,6 @@ export class Liga {
     nombre: string;
     activa: boolean;
     temporadas: Temporada[];
+    deporteNombre: string;
+    serieAlternas: Decada[];
 }
