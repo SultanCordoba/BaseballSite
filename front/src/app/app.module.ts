@@ -25,6 +25,8 @@ import { MatMenuModule } from '@angular/material/menu';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EscenarioGrupoComponent } from './_components/escenario/escenario-grupo/escenario-grupo.component';
+import { SerieAlternaComponent } from './_components/ligas/serie-alterna/serie-alterna.component';
+import { SandboxComponent } from './sandbox/sandbox.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { EscenarioGrupoComponent } from './_components/escenario/escenario-grupo
     LigasComponent,
     TemporadaComponent,
     EscenarioComponent,
-    EscenarioGrupoComponent
+    EscenarioGrupoComponent,
+    SerieAlternaComponent,
+    SandboxComponent
   ],
   imports: [
     BrowserModule,

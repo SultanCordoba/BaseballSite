@@ -1,4 +1,5 @@
 export class SerieAlterna {
+    temporada: string;
     escudoTemporada: string;
     equipo1: string;
     escudoEquipo1: string;

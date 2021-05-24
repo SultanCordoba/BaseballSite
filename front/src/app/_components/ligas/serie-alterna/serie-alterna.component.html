@@ -1,0 +1,31 @@
+<h2>Finales que no fueron</h2>
+
+<mat-tab-group dynamicHeight>
+    <mat-tab *ngFor="let decada of serieAlternas;" label="{{decada.decada}}">
+        <table mat-table [dataSource]='decada.series' class="mat-elevation-z8">
+            <ng-container matColumnDef="temporada">
+                <th mat-header-cell *matHeaderCellDef> Temporada </th>
+                <td mat-cell *matCellDef="let serie"> {{serie.temporada}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="equipo1">
+                <th mat-header-cell *matHeaderCellDef> Equipo 1 </th>
+                <td mat-cell *matCellDef="let serie"> 
+                    <img src="./assets/images/MLB/{{serie.escudoEquipo1}}" 
+                        alt="{{serie.equipo1}}" title="{{serie.equipo1}}"/> 
+                </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="equipo2">
+                <th mat-header-cell *matHeaderCellDef> Equipo 2 </th>
+                <td mat-cell *matCellDef="let serie"> 
+                    <img src="./assets/images/MLB/{{serie.escudoEquipo2}}" 
+                        alt="{{serie.equipo2}}" title="{{serie.equipo2}}"/>  
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-tab>
+</mat-tab-group>

@@ -49,22 +49,11 @@ namespace back.Services
                 }
 
                 SerieAltDecadum[] decadas = await _contexto.SerieAltDecada
-                    .Include(p => p.SerieAlternas)
+                    .Include(p => p.SerieAlternas.OrderByDescending(sa => sa.Temporada))
                     .Where(p => p.LigaId == fuente.Id)
                     .OrderByDescending(p => p.Decada)
                     .ToArrayAsync()
                 ;
-
-                // HashSet<DecadaDto> decadasDto = new();
-                // foreach(SerieAltDecadum decada in decadas) {
-                //     DecadaDto decadaDtoNew = _mapper.Map<SerieAltDecadum, DecadaDto>(decada);
-                //     decadaDtoNew.Series = _mapper.Map<SerieAlterna[], SerieAlternaDto[]>(decada.SerieAlternas.ToArray());
-                //     decadasDto.Add(decadaDtoNew);
-                // }
-
-                // if (decadasDto.Count > 0) {
-                //     respuesta.SerieAlternas = decadasDto.ToArray();
-                // }
 
                 if (decadas.Length > 0) {
                     respuesta.SerieAlternas = _mapper.Map<SerieAltDecadum[], DecadaDto[]>(decadas);
